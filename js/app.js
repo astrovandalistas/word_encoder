@@ -22,11 +22,13 @@ var paper;
 
 var strokeWidth = 20;
 
+var wcs = [];
+
 window.onload = function() {
 
 	paper = new Raphael(document.getElementById('canvas'));
 
-	var text  = "Hello Fucked Up World";
+	var text  = "Hello";
 
 	var words = text.split(" ");
 
@@ -38,11 +40,12 @@ window.onload = function() {
 		var word = words[wordIndex];
 
 		wc = new WordCircle();
-console.log( wc );
+
+		wc.setPosition( Math.random() * 1000, Math.random() * 600 );
+		
 		wc.setText( word );
 
-		wc.draw();
-
+		wcs.push( wc );
 		
 	}
 
@@ -50,3 +53,11 @@ console.log( wc );
     	//sector( 100, 100, 30, 90, 135,{'stroke':'#fa0'})
 
 }	
+
+
+setInterval(function(){
+	paper.clear();
+	for( i in wcs ) {
+		wcs[i].draw();
+	}
+}, 300)
