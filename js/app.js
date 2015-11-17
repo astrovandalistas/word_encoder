@@ -20,7 +20,7 @@ function segment(cx, cy, r, startAngle, endAngle, params) {
 
 var paper;
 
-var strokeWidth = 20;
+var strokeWidth = 6;
 
 var wcs = [];
 
@@ -32,12 +32,7 @@ window.onload = function() {
     }	
 
 
-    setInterval(function(){
-    	paper.clear();
-    	for( i in wcs ) {
-    		wcs[i].draw();
-    	}
-    }, 300)
+   
 
 
 	var textFile = null,
@@ -54,27 +49,18 @@ window.onload = function() {
 	};
 
     $(document).ready(function(){
-    	console.log("ready")
+
+
     	$('#export').click(function(e){
+
     		var svg = paper.toSVG();
     		$('#download a').attr('target','_blank').attr('href',makeTextFile(svg)).removeClass('disabled');
     		$('#download').removeClass('disabled');
 
+			var create = document.getElementById('create'),
+			textbox = document.getElementById('textbox');
 
-
-
-		var create = document.getElementById('create'),
-		textbox = document.getElementById('textbox');
-
-		// create.addEventListener('click', function () {
-		// 	var link = document.getElementById('downloadlink');
-		// 	link.href = makeTextFile(textbox.value);
-		// 	link.style.display = 'block';
-		// }, false);
-
-
-
-	})
+		})
 
     	paper = new Raphael(document.getElementById('canvas'));
 
@@ -90,6 +76,8 @@ window.onload = function() {
     		var word = words[wordIndex];
 
     		wc = new WordCircle();
+    		
+    		wc.setStrokeWidth( strokeWidth );
 
     		wc.setPosition( Math.random() * 1000, Math.random() * 600 );
 
@@ -98,6 +86,43 @@ window.onload = function() {
     		wcs.push( wc );
 
     	}
+
+
+
+    	setInterval(function(){
+
+	    	paper.clear();
+	    	
+	    	for( i in wcs ) {
+	    		wcs[i].draw();
+	    	}
+
+    		for( var i = 0; i < wcs.length - 1; i++ ) {
+    			
+
+    			var p1 = wcs[ i ].getPosition();
+    			var p2 = wcs[ i + 1 ].getPosition();
+	
+	    		var angleRadians = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+
+
+	    		var startX = p1.x + ( Math.cos( angleRadians ) * wcs[i].getRadius() );
+	    		var startY = p1.y + ( Math.sin( angleRadians ) * wcs[i].getRadius() );
+
+
+	    		var endX = p2.x - ( Math.cos( angleRadians ) * wcs[i+1].getRadius() );
+	    		var endY = p2.y - ( Math.sin( angleRadians ) * wcs[i+1].getRadius() );
+
+	    		// paper.circle( startX, startY, 30 );
+	    		// paper.circle( endX, endY, 30 );
+	    		
+	    		paper.path("M" + startX + " " + startY + " L " +  endX + " " + endY ).attr({'stroke-width': strokeWidth});
+	    		
+	    	
+    		}
+
+
+    	},300);
 
 
 

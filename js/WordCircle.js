@@ -6,10 +6,14 @@ function WordCircle() {
 	this.x = 0;
 	this.y = 0;
 
+	this.radius = 
+
 	this.dragging = false;
 
 	this.div = $('<div>').css({position:'absolute'}).appendTo($('body')).width(300).height(300);
-	
+
+	$('<div>').addClass('text').appendTo(this.div);
+
 	var WC = this;
 
 
@@ -31,15 +35,28 @@ function WordCircle() {
 
 	WordCircle.prototype.setText = function( text ) {
 		this.text = text;
+		this.div.find('.text').html( this.text );
+		this.width = this.text.length * this.radius;
 	}
 	WordCircle.prototype.getText = function() {
 		return this.text;
 	}
 
+	WordCircle.prototype.setStrokeWidth = function( strokeWidth ) {
+		this.strokeWidth = strokeWidth;
+	}
+	
+	WordCircle.prototype.getStrokeWidth = function() {
+		return this.strokeWidth;
+	}	
 
+	WordCircle.prototype.getRadius = function() {
+		return this.strokeWidth * ( this.text.length + 1 );
+	}
+	
 	WordCircle.prototype.draw = function() {
 
-console.log( this.x )
+
 		for(letterIndex in this.text ) {
 
 			var byteStr = "";
@@ -61,7 +78,8 @@ console.log( this.x )
     			sp =  ( (( 1 * (j) ) ))
 
     			if ( b == 1 ) {
-    				segment( this.x, this.y, strokeWidth +  (strokeWidth * (letterIndex)),  (j*45) + sp, ((j+1)*45)+sp, { 'stroke' : '#000', 'stroke-width' : strokeWidth - 1 });
+    			
+    				segment( this.x, this.y, this.strokeWidth +  (this.strokeWidth * (letterIndex)),  (j*45) + sp, ((j+1)*45)+sp, { 'stroke' : '#000', 'stroke-width' : this.strokeWidth - 1 });
 
     			}
 
@@ -96,7 +114,14 @@ console.log( this.x )
 
 
 	WordCircle.prototype.updatePosition = function() {
-		this.div.css({left:this.x-150, top: this.y-150});
+		var r =this.getRadius();
+		this.div.css({
+			left:this.x-r,
+			top: this.y-r,
+			// width: r,
+			// height: r
+		});
+
 	}
 
 
