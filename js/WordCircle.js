@@ -6,11 +6,11 @@ function WordCircle() {
 	this.x = 0;
 	this.y = 0;
 
-	this.radius = 
+	this.radius = 0;
 
 	this.dragging = false;
 
-	this.div = $('<div>').css({position:'absolute'}).appendTo($('body')).width(300).height(300);
+	this.div = $('<div>').css({position:'absolute',border:'1px solid black'}).appendTo($('#canvas')).width(300).height(300);
 
 	$('<div>').addClass('text').appendTo(this.div);
 
@@ -36,7 +36,9 @@ function WordCircle() {
 	WordCircle.prototype.setText = function( text ) {
 		this.text = text;
 		this.div.find('.text').html( this.text );
-		this.width = this.text.length * this.radius;
+
+		this.updatePosition();
+
 	}
 	WordCircle.prototype.getText = function() {
 		return this.text;
@@ -56,8 +58,7 @@ function WordCircle() {
 	
 	WordCircle.prototype.draw = function() {
 
-
-		for(letterIndex in this.text ) {
+		for(letterIndex=0; letterIndex < this.text.length; letterIndex++ ) {
 
 			var byteStr = "";
 
@@ -93,19 +94,19 @@ function WordCircle() {
 
 
 	this.div.mousedown(function(){
-		this.dragging = true;
+		WC.dragging = true;
 	})
 
 	this.div.mouseup(function(){
-		this.dragging = false;		
+		WC.dragging = false;		
 	})
 
 	this.div.mousemove(function(e){
 
-		if( this.dragging ) {
+		if( WC.dragging ) {
 			
-			WC.x = e.pageX;
-			WC.y = e.pageY;
+			WC.x = e.pageX ;
+			WC.y = e.pageY - WC.getRadius();
 
 			WC.updatePosition();
 
@@ -114,12 +115,14 @@ function WordCircle() {
 
 
 	WordCircle.prototype.updatePosition = function() {
-		var r =this.getRadius();
+		var r = this.getRadius() * 2;
+
+		console.log( r )
 		this.div.css({
-			left:this.x-r,
-			top: this.y-r,
-			// width: r,
-			// height: r
+			left:this.x - r/2,
+			top: this.y,
+			width: r,
+			height: r
 		});
 
 	}

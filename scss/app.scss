@@ -1,6 +1,14 @@
 @import "settings";
 @import "foundation";
 
+body {
+	position: relative;
+}
+
+.hidden {
+	display: none;
+}
+
 #export,#download{
 	z-index: 999;
 }
@@ -9,7 +17,25 @@
 	color: #fff;
 }
 
+input {
+	width: auto;
+}
+
 #canvas {
 	width: 100vw;
-	height: 100vh;
+	height: 70vh;
+
+	border: 1px solid black;
+}
+
+#canvas, svg {
+	z-index:-1;
+}
+
+
+
+
+#text_input {
+	height: 15vh;
+	overflow-y: scroll;
 }
