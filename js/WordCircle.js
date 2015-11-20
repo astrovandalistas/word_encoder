@@ -88,6 +88,7 @@ function WordCircle() {
 
 
 		}
+		var circle = paper.circle(this.x, this.y, this.getRadius()-this.strokeWidth/2+lineStrokeWidth).attr({'stroke':'#000', 'stroke-width':lineStrokeWidth});
 
 	}
 

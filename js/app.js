@@ -21,6 +21,7 @@ return paper.path(["M", cx, cy, "M", x1, y1, "A", r, r, 0, +(endAngle - startAng
 var paper;
 
 var strokeWidth = 10;
+var lineStrokeWidth = 4;
 
 var wcs = [];
 
@@ -118,9 +119,7 @@ $(document).ready(function(){
     		// paper.circle( startX, startY, 30 );
     		// paper.circle( endX, endY, 30 );
     		
-    		paper.path("M" + startX + " " + startY + " L " +  endX + " " + endY ).attr({'stroke-width': strokeWidth});
-    		
-    	
+			paper.path("M" + startX + " " + startY + " L " +  endX + " " + endY ).attr({'stroke-width': lineStrokeWidth});
 		}
 
 
