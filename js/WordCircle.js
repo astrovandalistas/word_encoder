@@ -10,7 +10,6 @@ function segment(cx, cy, r, startAngle, endAngle, params) {
 
 function WordCircle() {
 
-
 	this.text = "";
 	this.x = 0;
 	this.y = 0;
@@ -48,7 +47,6 @@ function WordCircle() {
 		this.div.find('.text').html( this.text );
 
 		this.updatePosition();
-
 	}
 	WordCircle.prototype.getText = function() {
 		return this.text;
@@ -89,13 +87,10 @@ function WordCircle() {
     			sp =  ( (( 1 * (j) ) ))
 
     			if ( b == 1 ) {
-    			
     				segment( this.x, this.y, this.strokeWidth +  (this.strokeWidth * (letterIndex)),  (j*45) + sp, ((j+1)*45)+sp, { 'stroke' : '#000', 'stroke-width' : this.strokeWidth - 1 });
-
     			}
 
     		}
-
 
 		}
 		var circle = paper.circle(this.x, this.y, this.getRadius()-this.strokeWidth/2+lineStrokeWidth).attr({'stroke':'#000', 'stroke-width':lineStrokeWidth});

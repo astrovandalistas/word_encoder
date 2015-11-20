@@ -9,15 +9,7 @@ var lineStrokeWidth = 4;
 
 var wcs = [];
 
-window.onload = function() {
-
-
-	//sector( 100, 100, 30, 90, 135,{'stroke':'#fa0'})
-
-}	
-
-
-
+window.onload = function() {}
 
 
 var textFile = null,
@@ -54,28 +46,6 @@ $(document).ready(function(){
 	var words = text.split(" ");
 
 
-	// for( wordIndex in words ) {
-
-	// 	wordIndex = parseInt( wordIndex );
-
-	// 	var word = words[wordIndex];
-
-	// 	wc = new WordCircle();
-		
-	// 	wc.setStrokeWidth( strokeWidth );
-
-	// 	wc.setPosition( Math.random() * 1000, Math.random() * 600 );
-
-	// 	wc.setText( word );
-
-	// 	wcs.push( wc );
-
-	// }
-
-
-
-
-
 	setInterval(function(){
 
     	paper.clear();
@@ -104,9 +74,6 @@ $(document).ready(function(){
 
     		var endX = p2.x - ( Math.cos( angleRadians ) * wcs[i+1].getRadius() );
     		var endY = p2.y - ( Math.sin( angleRadians ) * wcs[i+1].getRadius() );
-
-    		// paper.circle( startX, startY, 30 );
-    		// paper.circle( endX, endY, 30 );
     		
 			paper.path("M" + startX + " " + startY + " L " +  endX + " " + endY ).attr({'stroke-width': lineStrokeWidth});
 		}
@@ -128,8 +95,6 @@ function addRepeatable() {
 
 	newRepeatable.find('.add_button ').click(function(){
 
-		// $(this).css({color:'red'})
-
 		var word = newRepeatable.find('.text_input input').val();
 		var width = parseInt( newRepeatable.find('.number_input input').val() );
 
@@ -149,6 +114,5 @@ function addRepeatable() {
 		addRepeatable();
 
 	})
-
 
 }
