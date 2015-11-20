@@ -18,6 +18,7 @@ function WordCircle() {
 	this.radius = 0;
 
 	this.dragging = false;
+	this.deleteMe = false;
 
 	this.div = $('<div>').css({position:'absolute',border:'1px solid black'}).appendTo($('#canvas')).width(300).height(300);
 
@@ -105,6 +106,12 @@ function WordCircle() {
 
 	this.div.mousedown(function(){
 		WC.dragging = true;
+		if (event.which == 3){
+			WC.deleteMe = true;
+			WC.div.css({
+				display:'none'
+			});
+		}
 	})
 
 	this.div.mouseup(function(){

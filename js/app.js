@@ -80,9 +80,14 @@ $(document).ready(function(){
 
     	paper.clear();
 
-    	for( i in wcs ) {
-    		wcs[i].draw();
-    	}
+		for(var i = wcs.length - 1; i > -1; i-- ) {
+			if(wcs[i].deleteMe){
+				wcs.splice(i, 1);
+			}
+			else{
+				wcs[i].draw();
+			}
+		}
 
 		for( var i = 0; i < wcs.length - 1; i++ ) {
 				
