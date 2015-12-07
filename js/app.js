@@ -14,7 +14,7 @@ window.onload = function() {}
 
 var textFile = null,
 makeTextFile = function (text) {
-	var data = new Blob([text], {type: 'text/plain'});
+	var data = new Blob([text], {type: 'image/svg+xml'});
 
     if (textFile !== null) {
     	window.URL.revokeObjectURL(textFile);
