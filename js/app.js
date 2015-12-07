@@ -104,15 +104,13 @@ function addRepeatable() {
 		
 		wc.setStrokeWidth( width );
 
-
 		wc.setPosition( Math.random() * $('#canvas').width(), Math.random() * $('#canvas').height() );
 
 		wc.setText( word );
 
 		wcs.push( wc );
 
-		addRepeatable();
-
+		newRepeatable.find('.text_input input').val('');
 	})
 
 }
