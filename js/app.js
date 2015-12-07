@@ -27,18 +27,6 @@ makeTextFile = function (text) {
 
 $(document).ready(function(){
 
-
-	$('#export').click(function(e){
-
-		var svg = paper.toSVG();
-		$('#download a').attr('target','_blank').attr('href',makeTextFile(svg)).removeClass('disabled');
-		$('#download').removeClass('disabled');
-
-		var create = document.getElementById('create'),
-		textbox = document.getElementById('textbox');
-
-	})
-
 	paper = new Raphael(document.getElementById('canvas'));
 
 	var text  = "Hello Fucked Up World";
@@ -77,7 +65,7 @@ $(document).ready(function(){
     		
 			paper.path("M" + startX + " " + startY + " L " +  endX + " " + endY ).attr({'stroke-width': lineStrokeWidth});
 		}
-
+		$('#download a').attr('target','_blank').attr('href',makeTextFile(paper.toSVG())).attr('download', '');
 
 	},300);
 
