@@ -2,37 +2,14 @@
 $(document).foundation();
 
 
-
-var rad = Math.PI / 180;
-function segment(cx, cy, r, startAngle, endAngle, params) {
-var x1 = cx + r * Math.cos(-startAngle * rad),
-x2 = cx + r * Math.cos(-endAngle * rad),
-y1 = cy + r * Math.sin(-startAngle * rad),
-y2 = cy + r * Math.sin(-endAngle * rad);
-
-return paper.path(["M", cx, cy, "M", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2]).attr(params);
-
-}	
-
-
-
-
-
 var paper;
 
 var strokeWidth = 10;
+var lineStrokeWidth = 4;
 
 var wcs = [];
 
-window.onload = function() {
-
-
-	//sector( 100, 100, 30, 90, 135,{'stroke':'#fa0'})
-
-}	
-
-
-
+window.onload = function() {}
 
 
 var textFile = null,
@@ -69,35 +46,18 @@ $(document).ready(function(){
 	var words = text.split(" ");
 
 
-	// for( wordIndex in words ) {
-
-	// 	wordIndex = parseInt( wordIndex );
-
-	// 	var word = words[wordIndex];
-
-	// 	wc = new WordCircle();
-		
-	// 	wc.setStrokeWidth( strokeWidth );
-
-	// 	wc.setPosition( Math.random() * 1000, Math.random() * 600 );
-
-	// 	wc.setText( word );
-
-	// 	wcs.push( wc );
-
-	// }
-
-
-
-
-
 	setInterval(function(){
 
     	paper.clear();
 
-    	for( i in wcs ) {
-    		wcs[i].draw();
-    	}
+		for(var i = wcs.length - 1; i > -1; i-- ) {
+			if(wcs[i].deleteMe){
+				wcs.splice(i, 1);
+			}
+			else{
+				wcs[i].draw();
+			}
+		}
 
 		for( var i = 0; i < wcs.length - 1; i++ ) {
 				
@@ -114,13 +74,8 @@ $(document).ready(function(){
 
     		var endX = p2.x - ( Math.cos( angleRadians ) * wcs[i+1].getRadius() );
     		var endY = p2.y - ( Math.sin( angleRadians ) * wcs[i+1].getRadius() );
-
-    		// paper.circle( startX, startY, 30 );
-    		// paper.circle( endX, endY, 30 );
     		
-    		paper.path("M" + startX + " " + startY + " L " +  endX + " " + endY ).attr({'stroke-width': strokeWidth});
-    		
-    	
+			paper.path("M" + startX + " " + startY + " L " +  endX + " " + endY ).attr({'stroke-width': lineStrokeWidth});
 		}
 
 
@@ -139,8 +94,6 @@ function addRepeatable() {
 	var newRepeatable = $('.repeatable.hidden').clone().appendTo('#text_input').removeClass('hidden');
 
 	newRepeatable.find('.add_button ').click(function(){
-
-		// $(this).css({color:'red'})
 
 		var word = newRepeatable.find('.text_input input').val();
 		var width = parseInt( newRepeatable.find('.number_input input').val() );
@@ -161,6 +114,5 @@ function addRepeatable() {
 		addRepeatable();
 
 	})
-
 
 }
