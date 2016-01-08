@@ -14,7 +14,7 @@ window.onload = function() {}
 
 var textFile = null,
 makeTextFile = function (text) {
-	var data = new Blob([text], {type: 'text/plain'});
+	var data = new Blob([text], {type: 'image/svg+xml'});
 
     if (textFile !== null) {
     	window.URL.revokeObjectURL(textFile);
@@ -26,18 +26,6 @@ makeTextFile = function (text) {
 };
 
 $(document).ready(function(){
-
-
-	$('#export').click(function(e){
-
-		var svg = paper.toSVG();
-		$('#download a').attr('target','_blank').attr('href',makeTextFile(svg)).removeClass('disabled');
-		$('#download').removeClass('disabled');
-
-		var create = document.getElementById('create'),
-		textbox = document.getElementById('textbox');
-
-	})
 
 	paper = new Raphael(document.getElementById('canvas'));
 
@@ -77,7 +65,7 @@ $(document).ready(function(){
     		
 			paper.path("M" + startX + " " + startY + " L " +  endX + " " + endY ).attr({'stroke-width': lineStrokeWidth});
 		}
-
+		$('#download a').attr('target','_blank').attr('href',makeTextFile(paper.toSVG())).attr('download', '');
 
 	},300);
 
@@ -104,15 +92,12 @@ function addRepeatable() {
 		
 		wc.setStrokeWidth( width );
 
-
 		wc.setPosition( Math.random() * $('#canvas').width(), Math.random() * $('#canvas').height() );
 
 		wc.setText( word );
 
 		wcs.push( wc );
 
-		addRepeatable();
-
+		newRepeatable.find('.text_input input').val('');
 	})
-
 }
