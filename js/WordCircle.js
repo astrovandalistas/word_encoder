@@ -91,6 +91,7 @@ function WordCircle() {
 
 	}
 
+	
 
 
 	this.div.mousedown(function(){
