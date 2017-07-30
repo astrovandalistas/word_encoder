@@ -2,6 +2,7 @@
 $(document).foundation();
 
 
+<<<<<<< HEAD
 
 var rad = Math.PI / 180;
 function segment(cx, cy, r, startAngle, endAngle, params) {
@@ -19,6 +20,8 @@ function segment(cx, cy, r, startAngle, endAngle, params) {
 
 
 
+=======
+>>>>>>> a2fe958d15e27e36cb39ca26ea9f40f0f7b672e9
 var paper;
 
 var strokeWidth = 10;
@@ -46,7 +49,12 @@ $(document).ready(function(){
 
 	paper = new Raphael(document.getElementById('canvas'));
 
+<<<<<<< HEAD
+=======
+	var text  = "Hello Fucked Up World";
 
+	var words = text.split(" ");
+>>>>>>> a2fe958d15e27e36cb39ca26ea9f40f0f7b672e9
 
 
 	setInterval(function(){
@@ -87,6 +95,7 @@ $(document).ready(function(){
 
 	addRepeatable();
 
+	console.log(  $('#canvas').width(), $('#canvas').height() );
 
 })
 
