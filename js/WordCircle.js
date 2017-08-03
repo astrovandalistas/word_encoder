@@ -32,7 +32,7 @@ function WordCircle() {
 	this.div.append( this.rangeSlider )
 
 	this.div.addClass('box')
-	
+
 	$('<div>').addClass('text').appendTo(this.div);
 
 
@@ -146,10 +146,12 @@ function WordCircle() {
 
 		if( WC.dragging && ! WC.draggingSlider ) {
 
-			WC.x = e.pageX ;
-			WC.y = e.pageY - WC.getRadius();
+			WC.x = e.pageX - WC.getRadius() / 2;
+			WC.y = e.pageY - WC.getRadius() / 2;
 
 			WC.updatePosition();
+
+			WC.draggingSlider = false
 
 		}
 	})
@@ -160,23 +162,26 @@ function WordCircle() {
 	})
 	this.div.on('mouseleave',function(){
 		WC.rangeSlider.css({display:'none'})
+		WC.draggingSlider = false
 	})
 
 
 	WordCircle.prototype.updatePosition = function() {
+
 		var r = this.getRadius() * 2;
 
 		this.div.css({
 			left:this.x - r/2,
-			top: this.y,
+			top: this.y - r/2,
 			width: r,
 			height: r,
-			// border: '1px solid black'
+			outline: '1px solid #3A3A3A'
 		});
 
 		this.rangeSlider
 		.css({
-			marginLeft: WC.getRadius() - WC.rangeSlider.width()/2
+			marginTop: this.getRadius(),
+			marginLeft: this.getRadius() - this.rangeSlider.width()/2
 		})
 
 

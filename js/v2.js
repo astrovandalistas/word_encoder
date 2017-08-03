@@ -5,6 +5,7 @@ var lineStrokeWidth = 4;
 
 var wcs = [];
 
+newText = ""
 rawText = ""
 wordsArray = []
 lastArray = []
@@ -14,8 +15,13 @@ var textFile = null
 
 defaultStrokeWidth = 10
 
+startedTyping = false
+
 $(document).ready(function(){
 
+	$('#v2-text_input').html( "click here and start typing" )
+
+	vcenter($('#v2-text_input-container'))
 
 
 	paper = new Raphael(document.getElementById('v2-canvas'))
@@ -60,9 +66,39 @@ $(document).ready(function(){
    vcenter($('#v2-text_input-container'))
 
 
+   $('html').keydown(function(e){
+
+		if( ! startedTyping ) {
+			$('#v2-text_input').html( "" )
+			startedTyping = true
+		}
+
+		console.log("keydown",e.which)
+
+		if( e.which === 8 ) {
+         newText = rawText.slice(0,-1)
+			e.preventDefault()
+			rawText = newText
+      }
+
+      $('#v2-text_input').html( newText )
+
+		vcenter($('#v2-text_input-container'))
+
+		updateGlyph()
+
+
+	})
+
    $('html').keypress(function(e){
 
       // disable firefox spacebar scrolling
+
+		if( ! startedTyping ) {
+			$('#v2-text_input').html( "" )
+			startedTyping = true
+		}
+		
       if (e.which == 32 && e.target == document.body) {
          e.preventDefault();
       }
@@ -129,6 +165,7 @@ function updateGlyph() {
 
       last = wcs.pop()
 		last.div.remove()
+
    }
 
 

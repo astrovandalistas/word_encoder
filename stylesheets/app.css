@@ -84,7 +84,7 @@ body, html {
   display: none; }
 
 .box {
-  cursor: grab; }
+  cursor: pointer; }
 
 input[type=range] {
   -webkit-appearance: none;
