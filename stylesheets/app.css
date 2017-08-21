@@ -1,0 +1,236 @@
+/* line 1, ../scss/app.scss */
+body {
+  background-color: #444;
+  color: #aaa;
+  font-size: 32px !important;
+}
+
+/* line 7, ../scss/app.scss */
+* {
+  font-family: 'Lato', sans-serif !important;
+  font-weight: 100;
+}
+
+/* line 12, ../scss/app.scss */
+.hidden {
+  display: none;
+}
+
+/* line 16, ../scss/app.scss */
+#export, #download {
+  z-index: 999;
+}
+
+/* line 20, ../scss/app.scss */
+#v2-download a {
+  color: #fff;
+  padding: 24px;
+  background-color: #444;
+  color: #aaa;
+  bottom: 0;
+  right: 0;
+}
+
+/* line 29, ../scss/app.scss */
+input {
+  width: auto;
+}
+
+/* line 33, ../scss/app.scss */
+#canvas {
+  width: 100vw;
+  height: 70vh;
+  border: 1px solid black;
+}
+
+/* line 41, ../scss/app.scss */
+#canvas, svg {
+  z-index: -1;
+}
+
+/* line 45, ../scss/app.scss */
+body, html {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* line 51, ../scss/app.scss */
+#v2-text_input-container,
+#v2-canvas {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* line 60, ../scss/app.scss */
+#v2-text_input-container {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #aaa;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* line 67, ../scss/app.scss */
+#v2-canvas {
+  z-index: 0;
+  color: #aaa;
+  z-index: 1;
+}
+
+/* line 74, ../scss/app.scss */
+#v2-text_input {
+  display: block;
+  height: auto;
+  text-align: center;
+  width: 50%;
+  margin-left: 25%;
+  font-size: 64px;
+}
+
+/* line 84, ../scss/app.scss */
+#text_input {
+  height: 15vh;
+  overflow-y: scroll;
+}
+
+/* line 90, ../scss/app.scss */
+#v2-download {
+  position: absolute;
+  bottom: 32px;
+  right: 16px;
+  z-index: 3;
+  text-align: right;
+  display: block;
+  width: 100vw;
+  font-size: 16px !important;
+}
+/* line 100, ../scss/app.scss */
+#v2-download a {
+  text-decoration: none;
+  color: white;
+}
+
+/* line 107, ../scss/app.scss */
+.text {
+  display: none;
+}
+
+/* line 112, ../scss/app.scss */
+.box {
+  cursor: pointer;
+}
+
+/* line 122, ../scss/app.scss */
+input[type=range] {
+  -webkit-appearance: none;
+  width: 50%;
+  min-width: 80px;
+  max-width: 200px;
+  margin: 4.05px 0;
+}
+
+/* line 129, ../scss/app.scss */
+input[type=range]:focus {
+  outline: none;
+}
+
+/* line 132, ../scss/app.scss */
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2.9px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px transparent, 0px 0px 1px rgba(13, 13, 13, 0);
+  background: #ffffff;
+  border-radius: 1.7px;
+  border: 0px solid #ffffff;
+}
+
+/* line 141, ../scss/app.scss */
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px rgba(255, 255, 255, 0), 0px 0px 1px rgba(255, 255, 255, 0);
+  border: 0px solid rgba(255, 255, 255, 0);
+  height: 11px;
+  width: 11px;
+  border-radius: 0px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -4.05px;
+}
+
+/* line 152, ../scss/app.scss */
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ffffff;
+}
+
+/* line 155, ../scss/app.scss */
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 2.9px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px transparent, 0px 0px 1px rgba(13, 13, 13, 0);
+  background: #ffffff;
+  border-radius: 1.7px;
+  border: 0px solid #ffffff;
+}
+
+/* line 164, ../scss/app.scss */
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px rgba(255, 255, 255, 0), 0px 0px 1px rgba(255, 255, 255, 0);
+  border: 0px solid rgba(255, 255, 255, 0);
+  height: 11px;
+  width: 11px;
+  border-radius: 0px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* line 173, ../scss/app.scss */
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 2.9px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+/* line 181, ../scss/app.scss */
+input[type=range]::-ms-fill-lower {
+  background: #f2f2f2;
+  border: 0px solid #ffffff;
+  border-radius: 3.4px;
+  box-shadow: 1px 1px 1px transparent, 0px 0px 1px rgba(13, 13, 13, 0);
+}
+
+/* line 187, ../scss/app.scss */
+input[type=range]::-ms-fill-upper {
+  background: #ffffff;
+  border: 0px solid #ffffff;
+  border-radius: 3.4px;
+  box-shadow: 1px 1px 1px transparent, 0px 0px 1px rgba(13, 13, 13, 0);
+}
+
+/* line 193, ../scss/app.scss */
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px rgba(255, 255, 255, 0), 0px 0px 1px rgba(255, 255, 255, 0);
+  border: 0px solid rgba(255, 255, 255, 0);
+  height: 11px;
+  width: 11px;
+  border-radius: 0px;
+  background: #ffffff;
+  cursor: pointer;
+  height: 2.9px;
+}
+
+/* line 203, ../scss/app.scss */
+input[type=range]:focus::-ms-fill-lower {
+  background: #ffffff;
+}
+
+/* line 206, ../scss/app.scss */
+input[type=range]:focus::-ms-fill-upper {
+  background: #ffffff;
+}

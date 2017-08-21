@@ -1,17 +1,3 @@
-$(document).foundation();
-
-
-var rad = Math.PI / 180;
-function segment(cx, cy, r, startAngle, endAngle, params) {
-	var x1 = cx + r * Math.cos(-startAngle * rad),
-	x2 = cx + r * Math.cos(-endAngle * rad),
-	y1 = cy + r * Math.sin(-startAngle * rad),
-	y2 = cy + r * Math.sin(-endAngle * rad);
-
-	return paper.path(["M", cx, cy, "M", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2]).attr(params);
-}
-
-
 var paper;
 
 var strokeWidth = 10;
@@ -19,28 +5,26 @@ var lineStrokeWidth = 4;
 
 var wcs = [];
 
-window.onload = function() {}
+newText = ""
+rawText = ""
+wordsArray = []
+lastArray = []
+
+var textFile = null
 
 
-var textFile = null,
-makeTextFile = function (text) {
-	var data = new Blob([text], {type: 'image/svg+xml'});
+defaultStrokeWidth = 10
 
-    if (textFile !== null) {
-    	window.URL.revokeObjectURL(textFile);
-    }
-
-    textFile = window.URL.createObjectURL(data);
-
-    return textFile;
-};
+startedTyping = false
 
 $(document).ready(function(){
 
-	paper = new Raphael(document.getElementById('canvas'));
+	$('#v2-text_input').html( "click here and start typing" )
+
+	vcenter($('#v2-text_input-container'))
 
 
-
+	paper = new Raphael(document.getElementById('v2-canvas'))
 
 	setInterval(function(){
 
@@ -73,38 +57,191 @@ $(document).ready(function(){
 
 			paper.path("M" + startX + " " + startY + " L " +  endX + " " + endY ).attr({'stroke-width': lineStrokeWidth});
 		}
-		$('#download a').attr('target','_blank').attr('href',makeTextFile(paper.toSVG())).attr('download', '');
 
-	}, 300);
+      $('#v2-download a').attr('target','_blank').attr('href',makeTextFile(paper.toSVG())).attr('download', '');
+
+	}, 500);
 
 
-	addRepeatable();
+   vcenter($('#v2-text_input-container'))
+
+
+   $('html').keydown(function(e){
+
+		if( ! startedTyping ) {
+			$('#v2-text_input').html( "" )
+			startedTyping = true
+		}
+
+		console.log("keydown",e.which)
+
+		if( e.which === 8 ) {
+         newText = rawText.slice(0,-1)
+			e.preventDefault()
+			rawText = newText
+      }
+
+      $('#v2-text_input').html( newText )
+
+		vcenter($('#v2-text_input-container'))
+
+		updateGlyph()
+
+
+	})
+
+   $('html').keypress(function(e){
+
+      // disable firefox spacebar scrolling
+
+		if( ! startedTyping ) {
+			$('#v2-text_input').html( "" )
+			startedTyping = true
+		}
+		
+      if (e.which == 32 && e.target == document.body) {
+         e.preventDefault();
+      }
+
+      // backspace:
+      if( e.which === 8 ) {
+         newText = rawText.slice(0,-1)
+      } else {
+         newText = $('#v2-text_input').html() + String.fromCharCode(e.which)
+      }
+
+
+      $('#v2-text_input').html( newText )
+
+      rawText = newText
+
+      // updateTextArray()
+
+      vcenter($('#v2-text_input-container'))
+
+      // update glyph model
+      updateGlyph()
+
+   })
+
 
 
 })
 
 
-function addRepeatable() {
 
-	var newRepeatable = $('.repeatable.hidden').clone().appendTo('#text_input').removeClass('hidden');
 
-	newRepeatable.find('.add_button ').click(function(){
+function updateGlyph() {
 
-		var word = newRepeatable.find('.text_input input').val();
-		var width = parseInt( newRepeatable.find('.number_input input').val() );
+   wordsArray = rawText.split(" ")
 
-		console.log( word, width )
+   console.log(wordsArray[ wordsArray.length - 1 ])
 
-		var wc = new WordCircle();
+   if( wordsArray.length > lastArray.length ) {
 
-		wc.setStrokeWidth( width );
 
-		wc.setPosition( Math.random() * $('#canvas').width(), Math.random() * $('#canvas').height() );
+      var wc = new WordCircle();
 
-		wc.setText( word );
+		wc.setStrokeWidth( defaultStrokeWidth );
+
+		totalW =
+		wc.setPosition(
+			$('#v2-canvas').width()*0.2 + (Math.random() * $('#v2-canvas').width()*0.6),
+			$('#v2-canvas').height()*0.2 + (Math.random() * $('#v2-canvas').height()*0.6)
+		);
+
+		wc.setText( wordsArray[ wordsArray.length - 1 ] );
 
 		wcs.push( wc );
 
-		newRepeatable.find('.text_input input').val('');
-	})
+
+   }
+
+   if( wordsArray.length == lastArray.length ) {
+      wcs[wcs.length-1].setText( wordsArray[ wordsArray.length - 1 ] );
+   }
+
+   if( wordsArray.length < lastArray.length ) {
+
+      last = wcs.pop()
+		last.div.remove()
+
+   }
+
+
+   lastArray = wordsArray
+
+
+}
+
+
+
+
+
+var rad = Math.PI / 180;
+function segment(cx, cy, r, startAngle, endAngle, params) {
+
+	var x1 = cx + r * Math.cos(-startAngle * rad),
+	x2 = cx + r * Math.cos(-endAngle * rad),
+	y1 = cy + r * Math.sin(-startAngle * rad),
+	y2 = cy + r * Math.sin(-endAngle * rad);
+
+	return paper.path(["M", cx, cy, "M", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2]).attr(params);
+
+}
+
+
+
+function vcenter(contenedores){
+
+   contenedores.each(function(){
+
+      contenedor = $(this)
+
+      hijos = contenedor.children()
+
+      // vamos a eliminar el marginTop del primer hijo
+      hijos.first().css({
+         marginTop: 0
+      })
+      // vamos a eliminar el marginBottom del ultimo hijo
+      hijos.last().css({
+         marginBottom: 0
+      })
+
+      alturaHijos = 0
+
+      // recorrer cada uno de sus hijos para obtener su altura
+      hijos.each(function(){
+
+         hijo = $(this)
+
+         // sumar la altura de cada hijo a la altura total
+         alturaHijos += hijo.outerHeight(true)
+
+      })
+
+      diferencia = contenedor.height() - alturaHijos
+
+      distanciaParaCentrar = diferencia / 2
+
+      contenedor.css({
+         paddingTop: distanciaParaCentrar
+      })
+
+   })
+}
+
+
+makeTextFile = function (text) {
+
+	var data = new Blob([text], {type: 'image/svg+xml'});
+
+    if (textFile !== null) {
+    	window.URL.revokeObjectURL(textFile);
+    }
+
+    textFile = window.URL.createObjectURL(data);
+
+    return textFile;
 }
