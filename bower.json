@@ -18,6 +18,7 @@
     "fastclick": ">=0.6.11",
     "jquery.cookie": "~1.4.0",
     "foundation": "zurb/bower-foundation",
-    "raphael": "~2.1.4"
+    "raphael": "~2.1.4",
+    "raphael-export": "*"
   }
 }
