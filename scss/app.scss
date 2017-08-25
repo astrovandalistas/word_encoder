@@ -13,12 +13,8 @@ body {
 	display: none;
 }
 
-#export,#download{
-	z-index: 999;
-}
-
 #v2-download a {
-	color: #fff;
+   color: #fff;
    padding: 24px;
    background-color: #444;
    color: #aaa;
@@ -30,15 +26,7 @@ input {
 	width: auto;
 }
 
-#canvas {
-	width: 100vw;
-	height: 70vh;
-
-	border: 1px solid black;
-
-}
-
-#canvas, svg {
+svg {
 	z-index:-1;
 }
 
@@ -67,7 +55,6 @@ body, html {
 #v2-canvas {
    z-index: 0;
    color: #aaa;
-   z-index: 1;
 }
 
 
@@ -80,12 +67,6 @@ body, html {
    font-size: 64px;
 
 }
-
-#text_input {
-	height: 15vh;
-	overflow-y: scroll;
-}
-
 
 #v2-download {
    position: absolute;
@@ -112,11 +93,6 @@ body, html {
 .box {
    cursor: pointer;
 }
-
-
-
-
-
 
 
 input[type=range] {
